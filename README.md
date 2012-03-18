@@ -23,10 +23,4 @@ Then you can bind to 'update:name', and 'update:description' events.
         @model.bind 'update:description', -> alert 'description updated!'
 
 
-Existing Issues
----------------
-
-* I've setup my models so that they always have IDs. This may need to be tweaked to use a combination of CIDs and IDs for normal Spine use.
-
-
 
