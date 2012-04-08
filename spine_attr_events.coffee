@@ -11,7 +11,7 @@ ClassMethods =
 
 AttributeTracking =
   extended: ->
-    @_attributeSnapshots = {}
+    @_attributesSnapshots = {}
 
     @bind 'refresh create', (models) =>
       # Spine is a little quirky with refresh({clear: true}) and passes false.
