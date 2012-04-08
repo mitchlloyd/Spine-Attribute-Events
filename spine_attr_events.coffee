@@ -1,29 +1,33 @@
 ClassMethods =
-  setOldAttributes: (model) ->
+  setAttributesSnapshot: (model) ->
     attrCopy = {}
     for k, v of model.attributes()
       attrCopy[k] = v
 
-    @oldAttributes[model.id] = attrCopy
+    @_attributesSnapshots[model.id] = attrCopy
 
-  getOldAttributes: (model) ->
-    @oldAttributes[model.id]
+  getAttributesSnapshot: (model) ->
+    @_attributesSnapshots[model.id]
 
 AttributeTracking =
   extended: ->
-    @oldAttributes = {}
+    @_attributeSnapshots = {}
 
     @bind 'refresh create', (models) =>
+      # Spine is a little quirky with refresh({clear: true}) and passes false.
+      # So we need this fix for now.
+      models or= @all()
+
       # models could be an array of models or one model.
       if models.length?
-        @setOldAttributes(model) for model in models
+        @setAttributesSnapshot(model) for model in models
       else
-        @setOldAttributes(models)
+        @setAttributesSnapshot(models)
 
     @bind 'update', (model) =>
-      for k, v of model.attributes() when @getOldAttributes(model)[k] isnt v
+      for k, v of model.attributes() when @getAttributesSnapshot(model)[k] isnt v
         model.trigger("update:#{k}")
-      @setOldAttributes(model)
+      @setAttributesSnapshot(model)
 
     @extend ClassMethods
 
