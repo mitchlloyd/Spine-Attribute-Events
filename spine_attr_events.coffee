@@ -31,5 +31,5 @@ AttributeTracking =
 
     @extend ClassMethods
 
-Spine.AttributeTracking = AttributeTracking
+Spine?.AttributeTracking = AttributeTracking
 module?.exports = AttributeTracking
