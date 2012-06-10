@@ -23,4 +23,9 @@ Then you can bind to 'update:name', and 'update:description' events.
         @model.bind 'update:description', -> alert 'description updated!'
 
 
+Running the Tests
+-----------------
+
+1) Have mocha installed.
+2) run `mocha` in the root of this library.
 

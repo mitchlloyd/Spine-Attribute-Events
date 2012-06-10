@@ -1,3 +1,5 @@
+_ = require 'underscore'
+
 ClassMethods =
   setAttributesSnapshot: (model) ->
     attrCopy = {}
@@ -25,8 +27,9 @@ AttributeTracking =
         @setAttributesSnapshot(models)
 
     @bind 'update', (model) =>
-      for k, v of model.attributes() when @getAttributesSnapshot(model)[k] isnt v
-        model.trigger("update:#{k}")
+      for k, v of model.attributes()
+        unless _.isEqual(@getAttributesSnapshot(model)[k], v)
+          model.trigger("update:#{k}")
       @setAttributesSnapshot(model)
 
     @extend ClassMethods

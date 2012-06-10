@@ -31,3 +31,10 @@ describe 'Firing update events', ->
     gus.bind 'update:name', spy
     gus.updateAttribute('name', 'jake')
     spy.called.should.be.true
+
+  it "doesn't fire an event when an attribute is updated with an equivalent object", ->
+    Puppy.refresh({name: {first: 'Henry', last: 'Lloyd'}, id: 1})
+    henry = Puppy.find(1)
+    henry.bind 'update:name', spy
+    henry.updateAttribute('name', {first: 'Henry', last: "Lloyd"})
+    spy.called.should.be.false
