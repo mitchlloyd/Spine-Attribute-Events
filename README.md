@@ -26,6 +26,5 @@ Then you can bind to 'update:name', and 'update:description' events.
 Running the Tests
 -----------------
 
-1) Have mocha installed.
-2) run `mocha` in the root of this library.
-
+1. Have mocha installed.
+2. Run `mocha` in the root of this library.
